@@ -1,0 +1,15 @@
+<template>
+  <!-- <baseTable /> -->
+  <!-- <virtualTable /> -->
+  <!-- <canvasTable /> -->
+  <!-- <canvasVirtualTable /> -->
+  <webAssemblyTable />
+</template>
+
+<script setup>
+import baseTable from './components/baseTable.vue'
+import virtualTable from './components/virtualTable.vue'
+import canvasTable from './components/canvasTable.vue'
+import canvasVirtualTable from './components/canvasVirtualTable.vue'
+import webAssemblyTable from './components/webAssemblyTable.vue'
+</script>
