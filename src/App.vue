@@ -3,7 +3,8 @@
   <!-- <virtualTable /> -->
   <!-- <canvasTable /> -->
   <!-- <canvasVirtualTable /> -->
-  <webAssemblyTable />
+  <!-- <webAssemblyTable /> -->
+   <canvasWebAssemblyTable />
 </template>
 
 <script setup>
@@ -12,4 +13,5 @@ import virtualTable from './components/virtualTable.vue'
 import canvasTable from './components/canvasTable.vue'
 import canvasVirtualTable from './components/canvasVirtualTable.vue'
 import webAssemblyTable from './components/webAssemblyTable.vue'
+import canvasWebAssemblyTable from './components/canvasWebAssemblyTable.vue'
 </script>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import init, { process_data } from '../../wasm-processor/pkg/wasm_processor'
+import init, { process_data } from '../../wasm-base/pkg/wasm_base.js'
 
 const data = ref([])
 const loading = ref(true)
