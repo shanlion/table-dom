@@ -1,3 +1,4 @@
+
 <template>
   <canvas ref="canvasRef"></canvas>
 </template>
@@ -7,14 +8,17 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const canvasRef = ref(null)
 const rowHeight = 20
-const columnWidths = [50, 150, 50]
-const totalRows = 1000000 // 模拟一千万行可以扩展到这个数量级
+const tableCols = Array.from({length: 30}, (_, i) => i + 1)
+const tableData = Array.from({length: 1000}, (_, i) => i + 1)
 
-const data = Array.from({ length: totalRows }, (_, i) => ({
-  id: i,
-  name: `Name ${i}`,
-  age: Math.floor(Math.random() * 100),
-}))
+const generateRowData = (rowIndex) => {
+  return tableCols.reduce((obj, col, idx) => {
+    obj[`col_${col}`] = `Row ${rowIndex}Col ${col}`
+    return obj
+  }, { id: rowIndex })
+}
+
+const data = tableData.map((_, i) => generateRowData(i))
 
 const render = () => {
   const canvas = canvasRef.value
@@ -28,8 +32,9 @@ const render = () => {
   const visibleRowCount = Math.ceil(canvas.height / rowHeight)
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  ctx.font = '14px sans-serif'
   ctx.textBaseline = 'middle'
+
+  const colWidth = canvas.width / tableCols.length
 
   for (let i = 0; i < visibleRowCount; i++) {
     const rowIndex = startRow + i
@@ -38,9 +43,11 @@ const render = () => {
     const y = i * rowHeight
 
     ctx.strokeRect(0, y, canvas.width, rowHeight)
-    ctx.fillText(String(row.id), 5, y + rowHeight / 2)
-    ctx.fillText(row.name, columnWidths[0] + 5, y + rowHeight / 2)
-    ctx.fillText(String(row.age), columnWidths[0] + columnWidths[1] + 5, y + rowHeight / 2)
+    
+    tableCols.forEach((col, colIdx) => {
+      const x = colIdx * colWidth + 5
+      ctx.fillText(row[`col_${col}`], x, y + rowHeight / 2)
+    })
   }
 }
 
@@ -51,9 +58,7 @@ const onScroll = () => {
 onMounted(() => {
   render()
   window.addEventListener('scroll', onScroll)
-
-  // 设置 body 高度让页面可滚动
-  document.body.style.height = `${totalRows * rowHeight}px`
+  document.body.style.height = `${data.length * rowHeight}px`
 })
 
 onUnmounted(() => {

@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import init, { get_cell_data, get_visible_cells } from '../../wasm-canvas/pkg/wasm_canvas.js';
 
-const data = ref([])
 const loading = ref(true)
 const canvasRef = ref(null)
 
